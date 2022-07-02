@@ -21,6 +21,17 @@ export default function Resultado() {
   const [freCom, setFreCom] = useState([]);
 
 
+
+  const [media, setMedia] = useState(0)
+  const [varianzaF, setVarianzaF] = useState(0)
+  const [DVStand, setDVStan] = useState(0)
+  const [DVM, setDVM] = useState(0)
+  const [ventana, setVentana] = useState(true)
+  const [muestra, setMuestra] = useState(false)
+  // const [rango, setRango] = useState(0)
+  const [datosTotales,setDatosTotales]=useState(0)
+
+
   const arrAbc = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L']
 
 
@@ -62,12 +73,14 @@ export default function Resultado() {
   }
 
   const hacerTabla = () => {
+
     if (uniVa == null) {
       alert('pon unidad de variacion')
     } else {
 
-
+      
       asignarLimites();
+      mediasDis();
 
 
       let frec = 0;
@@ -103,11 +116,41 @@ export default function Resultado() {
 
 
 
+
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
   }
+  
+  const mediasDis=()=>{
+    let sumDatos=0;
+    for(let i=0;i<arrDatos.length;i++){
+      sumDatos+=arrDatos[i];
+    }
+    let mediaCal=sumDatos/arrDatos.length;
+
+    setMedia(mediaCal)
+
+    sumDatos=0;
+    for(let i=0;i<arrDatos.length;i++){
+      sumDatos+=Math.abs(arrDatos[i]-mediaCal);
+    }
+
+    let desviacionM=sumDatos/arrDatos.length;
+    setDVM(desviacionM);
+
+    sumDatos=0;
+    for(let i=0;i<arrDatos.length;i++){
+      sumDatos+=Math.pow(Math.abs(arrDatos[i]-mediaCal),2);
+    }
+
+    let varianza=sumDatos/arrDatos.length;
+    setVarianzaF(varianza);
+  }
+
+
+
 
   const asignarLimites = () => {
     let auxLimSup = arrDatos[0];
@@ -260,9 +303,10 @@ export default function Resultado() {
 
             <div>
               <h2 className="header">Medidas de tendencia central</h2 >
-              <h4>Media: </h4>
-              <h4>Mediana: </h4>
-              <h4>Moda: </h4>
+              <h4>Media: {media}</h4>
+              <h4>Desviacion Media: {DVM}</h4>
+              <h4>Varianza: {varianzaF}</h4>
+              <h4>Desviacion Estandar: {Math.pow(varianzaF,1/2)} </h4>
 
 
             </div>

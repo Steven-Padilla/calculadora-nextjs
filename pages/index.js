@@ -16,7 +16,7 @@ export default function Home() {
       </head>
 
       <main className={styles.main}>
-        <h1 className='title '>Hola, bienvenido a la calculadora de Estadística y cálculo diferencial</h1>
+        <h1 className='title '>Hola, bienvenido a la calculadora de Estadística</h1>
 
         <div className='d-flex justify-content-center'>
           <form>
